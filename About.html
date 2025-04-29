@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About | ZODIAC </title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; padding: 2rem;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(to bottom, #0f0f0f, #191919);
+      color: #e0e0e0;
+    }
+    header {
+      background: rgba(15, 15, 15, 0.9);
+      backdrop-filter: blur(4px);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #333;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      margin-bottom: 2rem;
+    }
+    header h1 { margin: 0; font-size: 1.5rem; }
+    nav a {
+      margin-left: 1.25rem;
+      color: #f0c420;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+    nav a:hover { color: #fff; }
+    h1, h2 { color: #f0c420; }
+    .wrapper { max-width: 800px; margin: auto; }
+    p { line-height: 1.6; }
+    .lookup {
+      margin-top: 2rem;
+      background: #222; padding: 1.5rem; border-radius: 8px;
+    }
+    .lookup label, .lookup input, .lookup button {
+      display: block; width: 100%;
+      margin-bottom: .75rem;
+      font-size: 1rem;
+    }
+    .lookup input {
+      padding: .5rem; border: 1px solid #333; border-radius: 4px;
+      background: #111; color: #e0e0e0;
+    }
+    .lookup button {
+      padding: .6rem; background: #f0c420; border: none; border-radius: 4px;
+      color: #000; cursor: pointer;
+    }
+    .lookup button:hover { opacity: .9; }
+    table {
+      width: 100%; border-collapse: collapse; margin-top: 1rem;
+    }
+    th, td {
+      border: 1px solid #333; padding: .6rem; text-align: left;
+    }
+    th { background: #333; }
+    .no-result { color: #f88; margin-top: .5rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ZODIAC </h1>
+    <nav>
+      <a href="ipfinal.html">Home</a>
+      <a href="#about">About</a>
+      <a href="#leaders">Classification</a>
+      <a href="#apply">Apply</a>
+      <a href="3Dmodel.html">3D&nbsp;Models</a>
+    </nav>
+  </header>
+  <div class="wrapper">
+    <h1>About ZODIAC </h1>
+    <p>
+      The ZODIAC Directorate is more than a classification system—it is our society's way
+      to preserve the memory of Earth's vanished wildlife and maintain order in a fragile world.
+      Each citizen receives a <strong>beast sign</strong> based on their personality, genetics, and social rank.
+      From the noble Tiger at the top tier to the humble Mouse at the base, every animal teaches us respect,
+      duty, and balance.
+    </p>
+    <p>
+      Our mission:
+      <ul>
+        <li><strong>Honor Extinct Species</strong> — Keep alive the legacy of animals we once lost.</li>
+        <li><strong>Maintain Social Harmony</strong> — Assign roles and responsibilities clearly.</li>
+        <li><strong>Empower Every Citizen</strong> — From high leaders to ground workers, each sign has meaning.</li>
+      </ul>
+    </p>
+
+    <section class="lookup">
+      <h2>Find Your Beast Sign and Tier</h2>
+      <label for="nameInput">Enter your full name:</label>
+      <input type="text" id="nameInput" placeholder="e.g., Celine Li" />
+      <button id="searchBtn">Search</button>
+      <p id="noResult" class="no-result" style="display:none;">No matching records found. Please check your spelling.</p>
+      <table id="resultTable" style="display:none;">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Beast Sign</th>
+            <th>Tier</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </div>
+
+  <script>
+   
+    const people = [
+      { name: 'Alice Zhang', animal: 'Tiger', tier: 'High' },
+      { name: 'Bob Chen',   animal: 'Monkey', tier: 'Mid' },
+      { name: 'Celine Li',  animal: 'Mouse', tier: 'Low'  },
+      { name: 'David Wu',   animal: 'Eagle', tier: 'High' },
+      { name: 'Emma Gao',   animal: 'Rabbit', tier: 'Mid' }
+    ];
+
+    const input = document.getElementById('nameInput');
+    const button = document.getElementById('searchBtn');
+    const table = document.getElementById('resultTable');
+    const tbody = table.querySelector('tbody');
+    const noResult = document.getElementById('noResult');
+
+    button.addEventListener('click', () => {
+      const query = input.value.trim();
+      tbody.innerHTML = '';
+      noResult.style.display = 'none';
+      table.style.display = 'none';
+
+      if (!query) return;
+      const match = people.filter(p => p.name.toLowerCase() === query.toLowerCase());
+      if (match.length > 0) {
+        match.forEach(p => {
+          const row = document.createElement('tr');
+          row.innerHTML = `<td>${p.name}</td><td>${p.animal}</td><td>${p.tier}</td>`;
+          tbody.appendChild(row);
+        });
+        table.style.display = '';
+      } else {
+        noResult.style.display = '';
+      }
+    });
+  </script>
+</body>
+</html>
